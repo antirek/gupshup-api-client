@@ -1,12 +1,11 @@
 const axios = require('axios');
 
 class GupshupAPIClient {
-
   constructor ({API_KEY, APP_NAME, SOURCE_MOBILE_NUMBER}) {
     this.API_KEY = API_KEY;
     this.APP_NAME = APP_NAME;
     this.SOURCE_MOBILE_NUMBER = SOURCE_MOBILE_NUMBER;
-    
+
     this.url = {
       bulkOptIn: `https://api.gupshup.io/sm/api/v1/app/opt/in/${APP_NAME}`,
       getTemplatesList: `https://api.gupshup.io/sm/api/v1/template/list/${APP_NAME}`,
@@ -32,25 +31,25 @@ class GupshupAPIClient {
     return resultantData;
   };
 
-  getTemplatesList = () => axios.get(this.url.getTemplatesList, this.config);
+  getTemplatesList = async () => await axios.get(this.url.getTemplatesList, this.config);
 
-  markUserOptIn = (userMobileNumber) => {
+  markUserOptIn = async (userMobileNumber) => {
     const params = this.getUrlEncodedData({
       user: userMobileNumber
     });
 
-    return axios.post(this.url.optInUser, params, this.config);
+    return await axios.post(this.url.optInUser, params, this.config);
   };
 
-  markBulkOptIn = (userMobileNumbers) => {
+  markBulkOptIn = async (userMobileNumbers) => {
     const params = this.getUrlEncodedData({
       users: userMobileNumbers
     });
 
-    return axios.post(this.url.bulkOptIn, params, this.config);
+    return await axios.post(this.url.bulkOptIn, params, this.config);
   };
-  
-  sendMediaImageMessage = (userMobileNumber, imageUrl, caption) => {
+
+  sendMediaImageMessage = async (userMobileNumber, imageUrl, caption) => {
     const params = this.getUrlEncodedData({
       channel: 'whatsapp',
       source: this.SOURCE_MOBILE_NUMBER,
@@ -64,10 +63,10 @@ class GupshupAPIClient {
       }
     });
 
-    return axios.post(this.url.sendTextMessage, params, this.config);
+    return await axios.post(this.url.sendTextMessage, params, this.config);
   };
 
-  sendMediaVideoMessage = (userMobileNumber, videoUrl, caption) => {
+  sendMediaVideoMessage = async (userMobileNumber, videoUrl, caption) => {
     const params = this.getUrlEncodedData({
       channel: 'whatsapp',
       source: this.SOURCE_MOBILE_NUMBER,
@@ -80,10 +79,10 @@ class GupshupAPIClient {
       'src.name': this.APP_NAME
     });
 
-    return axios.post(this.url.sendTextMessage, params, this.config);
+    return await axios.post(this.url.sendTextMessage, params, this.config);
   };
 
-  sendTextMessage = (userMobileNumber, message) => {
+  sendTextMessage = async (userMobileNumber, message) => {
     const params = this.getUrlEncodedData({
       channel: 'whatsapp',
       source: this.SOURCE_MOBILE_NUMBER,
@@ -96,10 +95,10 @@ class GupshupAPIClient {
       disablePreview: false
     });
 
-    return axios.post(this.url.sendTextMessage, params, this.config);
+    return await axios.post(this.url.sendTextMessage, params, this.config);
   };
 
-  sendTemplateMessage = (userMobileNumber, templateId, templateParams, mediaMessage) => {
+  sendTemplateMessage = async (userMobileNumber, templateId, templateParams, mediaMessage) => {
     const params = this.getUrlEncodedData({
       source: this.SOURCE_MOBILE_NUMBER,
       destination: userMobileNumber,
@@ -110,7 +109,7 @@ class GupshupAPIClient {
       message: mediaMessage
     });
 
-    return axios.post(this.url.sendTemplateMessage, params, this.config);
+    return await axios.post(this.url.sendTemplateMessage, params, this.config);
   };
 }
 
