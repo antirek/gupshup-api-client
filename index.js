@@ -109,6 +109,37 @@ class GupshupAPIClient {
     return await axios.post(this.url.sendTextMessage, params, this.config);
   };
 
+  sendMediaFileMessage = async (userMobileNumber, fileUrl, filename) => {
+    const params = this.getUrlEncodedData({
+      channel: 'whatsapp',
+      source: this.SOURCE_MOBILE_NUMBER,
+      destination: userMobileNumber,
+      message: {
+        type: 'file',
+        url: fileUrl,
+        filename,
+      },
+      'src.name': this.APP_NAME
+    });
+
+    return await axios.post(this.url.sendTextMessage, params, this.config);
+  };
+  
+  sendMediaStickerMessage = async (userMobileNumber, stickerUrl) => {
+    const params = this.getUrlEncodedData({
+      channel: 'whatsapp',
+      source: this.SOURCE_MOBILE_NUMBER,
+      destination: userMobileNumber,
+      message: {
+        type: 'sticker',
+        url: stickerUrl,
+      },
+      'src.name': this.APP_NAME
+    });
+
+    return await axios.post(this.url.sendTextMessage, params, this.config);
+  };
+
   sendTextMessage = async (userMobileNumber, message) => {
     const params = this.getUrlEncodedData({
       channel: 'whatsapp',
