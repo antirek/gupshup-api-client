@@ -7,9 +7,9 @@ class GupshupAPIClient {
     this.SOURCE_MOBILE_NUMBER = SOURCE_MOBILE_NUMBER;
 
     this.url = {
-      bulkOptIn: `https://api.gupshup.io/sm/api/v1/app/opt/in/${APP_NAME}`,
       getTemplatesList: `https://api.gupshup.io/sm/api/v1/template/list/${APP_NAME}`,
       optInUser: `https://api.gupshup.io/sm/api/v1/app/opt/in/${APP_NAME}`,
+      bulkOptIn: `https://api.gupshup.io/sm/api/v1/app/opt/in/${APP_NAME}`,
       sendTextMessage: 'https://api.gupshup.io/sm/api/v1/msg',
       sendTemplateMessage: 'http://api.gupshup.io/sm/api/v1/template/msg',
       getWalletBalance: 'https://api.gupshup.io/sm/api/v2/wallet/balance',
@@ -24,6 +24,11 @@ class GupshupAPIClient {
     };
   };
 
+  /**
+   * 
+   * @param {*} data 
+   * @returns 
+   */
   getUrlEncodedData = (data) => {
     const resultantData = new URLSearchParams();
     Object.keys(data).forEach(key => {
@@ -32,6 +37,10 @@ class GupshupAPIClient {
     return resultantData;
   };
 
+  /**
+   * 
+   * @returns 
+   */
   getTemplatesList = async () => await axios.get(this.url.getTemplatesList, this.config);
 
   getWalletBalance = async () => await axios.get(this.url.getWalletBalance, this.config);
@@ -77,7 +86,22 @@ class GupshupAPIClient {
       message: {
         type: 'video',
         url: videoUrl,
-        caption
+        caption,
+      },
+      'src.name': this.APP_NAME
+    });
+
+    return await axios.post(this.url.sendTextMessage, params, this.config);
+  };
+
+  sendMediaAudioMessage = async (userMobileNumber, audioUrl) => {
+    const params = this.getUrlEncodedData({
+      channel: 'whatsapp',
+      source: this.SOURCE_MOBILE_NUMBER,
+      destination: userMobileNumber,
+      message: {
+        type: 'audio',
+        url: audioUrl,
       },
       'src.name': this.APP_NAME
     });

@@ -1,6 +1,6 @@
 # gupshup-api-client
 
-Gupshup API client
+Unofficial Gupshup API client
 
 [Gupshup.io](https://gupshup.io)
 
