@@ -220,6 +220,26 @@ class GupshupAPIClient {
 
     return await axios.post(this.url.sendTextMessage, params, this.config);
   };
+
+  checkContentType = (type, contentType) => {
+    const types = {
+      audio: ['audio/aac', 'audio/mp4', 'audio/amr', 'audio/mpeg', 'audio/ogg;codecs=opus'],
+      image: ['image/jpeg', 'image/png'],
+      video: ['video/mp4', 'video/3gpp'],
+    };
+    return types[type].includes(contentType.replace(/ /g,''));
+  }
+
+  checkSize = (type, size) => {
+    const types = {
+      image: 5 * 1024 * 1024,  // 5mb
+      audio: 16 * 1024 * 1024, // 16mb      
+      video: 16 * 1024 * 1024, // 16mb
+      file: 100 * 1024 * 1024, // 100mb
+      sticker: 100 * 1024,     // 100kb
+    }
+    return size > 0 && size < types[type];
+  }
 }
 
 module.exports = {
