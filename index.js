@@ -169,6 +169,57 @@ class GupshupAPIClient {
 
     return await axios.post(this.url.sendTemplateMessage, params, this.config);
   };
+
+  sendLocation = async (userMobileNumber, longitude, latitude, name, address) => {
+    const params = this.getUrlEncodedData({
+      channel: 'whatsapp',
+      source: this.SOURCE_MOBILE_NUMBER,
+      destination: userMobileNumber,
+      message: {
+        type: 'location',
+        longitude,
+        latitude,
+        name,
+        address,
+      },
+      'src.name': this.APP_NAME,
+    });
+
+    return await axios.post(this.url.sendTextMessage, params, this.config);
+  };
+
+  sendLocation = async (userMobileNumber, longitude, latitude, name, address) => {
+    const params = this.getUrlEncodedData({
+      channel: 'whatsapp',
+      source: this.SOURCE_MOBILE_NUMBER,
+      destination: userMobileNumber,
+      message: {
+        type: 'location',
+        longitude,
+        latitude,
+        name,
+        address,
+      },
+      'src.name': this.APP_NAME,
+    });
+
+    return await axios.post(this.url.sendTextMessage, params, this.config);
+  };
+
+  sendContactCard = async (userMobileNumber, contactCard) => {
+    const params = this.getUrlEncodedData({
+      channel: 'whatsapp',
+      source: this.SOURCE_MOBILE_NUMBER,
+      destination: userMobileNumber,
+      message: {
+        type: 'contact',
+        contact: contactCard,
+      },
+      'src.name': this.APP_NAME,
+    });
+
+    return await axios.post(this.url.sendTextMessage, params, this.config);
+  };
 }
 
 module.exports = {
