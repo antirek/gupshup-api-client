@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 const axios = require('axios');
 class GupshupAPIClient {
     constructor({ API_KEY, APP_NAME, SOURCE_MOBILE_NUMBER }) {
@@ -152,14 +153,14 @@ class GupshupAPIClient {
             });
             return yield axios.post(this.url.sendTextMessage, params, this.config);
         });
-        this.sendContactCard = (userMobileNumber, contactCard) => __awaiter(this, void 0, void 0, function* () {
+        this.sendContactCard = (userMobileNumber, contact) => __awaiter(this, void 0, void 0, function* () {
             const params = this.getUrlEncodedData({
                 channel: 'whatsapp',
                 source: this.SOURCE_MOBILE_NUMBER,
                 destination: userMobileNumber,
                 message: {
                     type: 'contact',
-                    contact: contactCard,
+                    contact,
                 },
                 'src.name': this.APP_NAME,
             });

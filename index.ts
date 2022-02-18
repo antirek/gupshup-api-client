@@ -1,44 +1,6 @@
 const axios = require('axios');
 
-interface Address {
-  city: string;
-  country: string;
-  countryCode: string;
-  state: string;
-  street: string;
-  type: string;
-  zip: string;
-}
-
-interface Email {
-  email: string;
-  type: string;
-}
-
-interface Name {
-  firstName: string;
-  formattedName: string;
-  lastName: string;
-}
-
-interface Phone {
-  phone: string;
-  type: string;
-  wa_id: string;
-}
-
-interface ContactCard {
-  name: Name;
-  addresses: Address[];
-  emails: Email[];
-  phones: Phone[];
-}
-
-interface GupshupAPIClientConfig {
-  API_KEY: string;
-  APP_NAME: string;
-  SOURCE_MOBILE_NUMBER: string;
-}
+import type {GupshupAPIClientConfig, ContactCard} from './types';
 
 class GupshupAPIClient {
   API_KEY: string;
@@ -258,14 +220,14 @@ class GupshupAPIClient {
     return await axios.post(this.url.sendTextMessage, params, this.config);
   };
 
-  sendContactCard = async (userMobileNumber: string, contactCard: ContactCard) => {
+  sendContactCard = async (userMobileNumber: string, contact: ContactCard) => {
     const params = this.getUrlEncodedData({
       channel: 'whatsapp',
       source: this.SOURCE_MOBILE_NUMBER,
       destination: userMobileNumber,
       message: {
         type: 'contact',
-        contact: contactCard,
+        contact,
       },
       'src.name': this.APP_NAME,
     });
