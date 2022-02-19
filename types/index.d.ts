@@ -38,3 +38,28 @@ export interface GupshupAPIClientConfig {
   APP_NAME: string;
   SOURCE_MOBILE_NUMBER: string;
 }
+
+interface GlobalButton {
+  type: string;
+  title: string;
+}
+
+interface ListMessageItemOption {
+  type: string;
+  title: string;
+  description: string;
+  postbackText: string;
+}
+
+interface ListMessageItem {
+  title: string;
+  options: ListMessageItemOption[];
+}
+
+export interface ListMessage {
+  title: string,
+  body: string,
+  msgid: string,
+  globalButtons: GlobalButton[],
+  items: ListMessageItem[],
+}

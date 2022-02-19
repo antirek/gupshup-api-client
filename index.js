@@ -166,6 +166,23 @@ class GupshupAPIClient {
             });
             return yield axios.post(this.url.sendTextMessage, params, this.config);
         });
+        this.sendListMessages = (userMobileNumber, message) => __awaiter(this, void 0, void 0, function* () {
+            const params = this.getUrlEncodedData({
+                channel: 'whatsapp',
+                source: this.SOURCE_MOBILE_NUMBER,
+                destination: userMobileNumber,
+                message: {
+                    type: 'list',
+                    title: message.title,
+                    body: message.body,
+                    msgid: message.msgid,
+                    globalButtons: message.globalButtons,
+                    items: message.items,
+                },
+                'src.name': this.APP_NAME,
+            });
+            return yield axios.post(this.url.sendTextMessage, params, this.config);
+        });
         this.checkContentType = (type, contentType) => {
             const types = {
                 audio: ['audio/aac', 'audio/mp4', 'audio/amr', 'audio/mpeg', 'audio/ogg;codecs=opus'],
@@ -203,7 +220,7 @@ class GupshupAPIClient {
             }
         };
     }
-    ;
+    
 }
 module.exports = {
     GupshupAPIClient,

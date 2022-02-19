@@ -1,6 +1,10 @@
-const axios = require('axios');
+import axios from 'axios';
 
-import type {GupshupAPIClientConfig, ContactCard} from './types';
+import type {
+  GupshupAPIClientConfig, 
+  ContactCard,
+  ListMessage,
+} from './types';
 
 class GupshupAPIClient {
   API_KEY: string;
@@ -18,7 +22,7 @@ class GupshupAPIClient {
     headers: { 
       'Cache-Control': string; 
       'Content-Type': string; 
-      apiKey: any; 
+      apiKey: string; 
     };
   };
 
@@ -43,7 +47,7 @@ class GupshupAPIClient {
         apiKey: this.API_KEY
       }
     };
-  };
+  }
 
   /**
    * 
@@ -228,6 +232,25 @@ class GupshupAPIClient {
       message: {
         type: 'contact',
         contact,
+      },
+      'src.name': this.APP_NAME,
+    });
+
+    return await axios.post(this.url.sendTextMessage, params, this.config);
+  };
+
+  sendListMessages = async (userMobileNumber: string, message: ListMessage) => {
+    const params = this.getUrlEncodedData({
+      channel: 'whatsapp',
+      source: this.SOURCE_MOBILE_NUMBER,
+      destination: userMobileNumber,
+      message: {
+        type: 'list',
+        title: message.title,
+        body: message.body,
+        msgid: message.msgid,
+        globalButtons: message.globalButtons,
+        items: message.items,
       },
       'src.name': this.APP_NAME,
     });
