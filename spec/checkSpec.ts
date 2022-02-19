@@ -1,4 +1,4 @@
-const {GupshupAPIClient} = require('../index');
+import {GupshupAPIClient} from '../index';
 
 const client = new GupshupAPIClient({
   API_KEY: 'test',

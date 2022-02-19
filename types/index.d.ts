@@ -63,3 +63,28 @@ export interface ListMessage {
   globalButtons: GlobalButton[],
   items: ListMessageItem[],
 }
+
+interface QuickReplyMessageTextContent {
+  type: string;
+  header: string;
+  text: string;
+  footer: string;  
+}
+
+interface QuickReplyMessageMediaContent {
+  type: string;
+  text: string;
+  url: string;
+  caption: string;
+}
+
+interface QuickReplyMessageOption {
+  type: string;
+  title: string;
+}
+
+export interface QuickReplyMessage {
+  msgid: string;
+  content: QuickReplyMessageTextContent | QuickReplyMessageMediaContent;
+  options: QuickReplyMessageOption[];
+}

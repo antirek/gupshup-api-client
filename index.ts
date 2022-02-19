@@ -4,9 +4,10 @@ import type {
   GupshupAPIClientConfig, 
   ContactCard,
   ListMessage,
+  QuickReplyMessage,
 } from './types';
 
-class GupshupAPIClient {
+export class GupshupAPIClient {
   API_KEY: string;
   APP_NAME: string;
   SOURCE_MOBILE_NUMBER: string;  
@@ -239,7 +240,7 @@ class GupshupAPIClient {
     return await axios.post(this.url.sendTextMessage, params, this.config);
   };
 
-  sendListMessages = async (userMobileNumber: string, message: ListMessage) => {
+  sendListMessage = async (userMobileNumber: string, message: ListMessage) => {
     const params = this.getUrlEncodedData({
       channel: 'whatsapp',
       source: this.SOURCE_MOBILE_NUMBER,
@@ -251,6 +252,23 @@ class GupshupAPIClient {
         msgid: message.msgid,
         globalButtons: message.globalButtons,
         items: message.items,
+      },
+      'src.name': this.APP_NAME,
+    });
+
+    return await axios.post(this.url.sendTextMessage, params, this.config);
+  };
+
+  sendQuickReply = async (userMobileNumber: string, message: QuickReplyMessage) => {
+    const params = this.getUrlEncodedData({
+      channel: 'whatsapp',
+      source: this.SOURCE_MOBILE_NUMBER,
+      destination: userMobileNumber,
+      message: {
+        type: 'quick_reply',
+        msgid: message.msgid,
+        content: message.content,
+        options: message.options,
       },
       'src.name': this.APP_NAME,
     });
@@ -277,8 +295,4 @@ class GupshupAPIClient {
     }
     return size > 0 && size < types[type];
   }
-}
-
-module.exports = {
-  GupshupAPIClient,
 }

@@ -104,7 +104,7 @@ module.exports = {
 
   // A preset that is used as a base for Jest's configuration
   // preset: null,
-
+  preset: "ts-jest",
   // Run tests from one or more projects
   // projects: null,
 
@@ -156,8 +156,8 @@ module.exports = {
 
   // The glob patterns Jest uses to detect test files
   testMatch: [
-    '**/spec/*Spec.js',
-    '**/spec/**/*Spec.js',
+    '**/spec/*Spec.ts',
+    '**/spec/**/*Spec.ts',
     //   "**/__tests__/**/*.[jt]s?(x)",
     //   "**/?(*.)+(spec|test).[tj]s?(x)"
   ],
