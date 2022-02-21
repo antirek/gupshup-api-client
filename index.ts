@@ -17,7 +17,8 @@ export class GupshupAPIClient {
     bulkOptIn: string; 
     sendTextMessage: string;
     sendTemplateMessage: string; 
-    getWalletBalance: string; 
+    getWalletBalance: string;
+    optInUsersList: string;
   };
   config: { 
     headers: { 
@@ -36,6 +37,7 @@ export class GupshupAPIClient {
       getTemplatesList: `https://api.gupshup.io/sm/api/v1/template/list/${APP_NAME}`,
       optInUser: `https://api.gupshup.io/sm/api/v1/app/opt/in/${APP_NAME}`,
       bulkOptIn: `https://api.gupshup.io/sm/api/v1/app/opt/in/${APP_NAME}`,
+      optInUsersList: `https://api.gupshup.io/sm/api/v1/users/${APP_NAME}`,
       sendTextMessage: 'https://api.gupshup.io/sm/api/v1/msg',
       sendTemplateMessage: 'http://api.gupshup.io/sm/api/v1/template/msg',
       getWalletBalance: 'https://api.gupshup.io/sm/api/v2/wallet/balance',
@@ -70,6 +72,8 @@ export class GupshupAPIClient {
   getTemplatesList = async () => await axios.get(this.url.getTemplatesList, this.config);
 
   getWalletBalance = async () => await axios.get(this.url.getWalletBalance, this.config);
+
+  getOptInUsersList = async () => await axios.get(this.url.optInUsersList, this.config);
 
   markUserOptIn = async (userMobileNumber: string) => {
     const params = this.getUrlEncodedData({
