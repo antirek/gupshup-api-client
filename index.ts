@@ -186,32 +186,13 @@ export class GupshupAPIClient {
     return await axios.post(this.url.sendTextMessage, params, this.config);
   };
 
-  sendTemplateMessage = async (
-      userMobileNumber: string,
-      templateId: string,
-      templateParams: string,
-      mediaMessage: string
-    ) => {
-    const params = this.getUrlEncodedData({
-      source: this.SOURCE_MOBILE_NUMBER,
-      destination: userMobileNumber,
-      template: {
-        id: templateId,
-        params: templateParams
-      },
-      message: mediaMessage
-    });
-
-    return await axios.post(this.url.sendTemplateMessage, params, this.config);
-  };
-
   sendLocation = async (
-      userMobileNumber: string,
-      longitude: string,
-      latitude: string,
-      name: string,
-      address: string
-    ) => {
+    userMobileNumber: string,
+    longitude: string,
+    latitude: string,
+    name: string,
+    address: string
+  ) => {
     const params = this.getUrlEncodedData({
       channel: 'whatsapp',
       source: this.SOURCE_MOBILE_NUMBER,
@@ -278,6 +259,121 @@ export class GupshupAPIClient {
     });
 
     return await axios.post(this.url.sendTextMessage, params, this.config);
+  };
+
+  sendTemplateTextMessage = async (
+    userMobileNumber: string, templateId: string, templateParams: string[],
+    ) => {
+    const params = this.getUrlEncodedData({
+      source: this.SOURCE_MOBILE_NUMBER,
+      destination: userMobileNumber,
+      template: {
+        id: templateId,
+        params: templateParams,
+      },
+    });
+
+    return await axios.post(this.url.sendTemplateMessage, params, this.config);
+  };
+
+  sendTemplateImageMessage = async (
+    userMobileNumber: string,
+    templateId: string,
+    templateParams: string[],
+    imageUrl: string,
+    ) => {
+    const params = this.getUrlEncodedData({
+      source: this.SOURCE_MOBILE_NUMBER,
+      destination: userMobileNumber,
+      template: {
+        id: templateId,
+        params: templateParams,
+      },
+      message: {
+        type: 'image',
+        image: {
+          link: imageUrl,
+        },
+      },
+    });
+
+    return await axios.post(this.url.sendTemplateMessage, params, this.config);
+  };
+
+  sendTemplateVideoMessage = async (
+    userMobileNumber: string,
+    templateId: string,
+    templateParams: string[],
+    videoUrl: string,
+    ) => {
+    const params = this.getUrlEncodedData({
+      source: this.SOURCE_MOBILE_NUMBER,
+      destination: userMobileNumber,
+      template: {
+        id: templateId,
+        params: templateParams,
+      },
+      message: {
+        type: 'video',
+        video: {
+          link: videoUrl,
+        },
+      },
+    });
+
+    return await axios.post(this.url.sendTemplateMessage, params, this.config);
+  };
+
+  sendTemplateDocumentMessage = async (
+    userMobileNumber: string,
+    templateId: string,
+    templateParams: string[],
+    documentUrl: string,
+    filename: string,
+    ) => {
+    const params = this.getUrlEncodedData({
+      source: this.SOURCE_MOBILE_NUMBER,
+      destination: userMobileNumber,
+      template: {
+        id: templateId,
+        params: templateParams,
+      },
+      message: {
+        type: 'document',
+        document: {
+          link: documentUrl,
+          filename,
+        },
+      },
+    });
+
+    return await axios.post(this.url.sendTemplateMessage, params, this.config);
+  };
+
+  sendTemplateLocationMessage = async (
+    userMobileNumber: string,
+    templateId: string,
+    templateParams: string[],
+    longitude: string,
+    latitude: string,
+    ) => {
+    const params = this.getUrlEncodedData({
+      source: this.SOURCE_MOBILE_NUMBER,
+      destination: userMobileNumber,
+      template: {
+        id: templateId,
+        params: templateParams,
+      },
+      message: {
+        type: 'location',
+        location: {
+          longitude,
+          latitude,
+        },
+      },
+    });
+
+    return await axios.post(this.url.sendTemplateMessage, params, this.config);
   };
 
   checkContentType = (type: string, contentType: string) => {
