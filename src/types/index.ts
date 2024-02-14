@@ -34,24 +34,25 @@ export interface ContactCard {
 }
 
 export interface GupshupAPIClientConfig {
+  APP_ID?: string;
   API_KEY: string;
   APP_NAME: string;
   SOURCE_MOBILE_NUMBER: string;
 }
 
-interface GlobalButton {
+export interface GlobalButton {
   type: string;
   title: string;
 }
 
-interface ListMessageItemOption {
+export interface ListMessageItemOption {
   type: string;
   title: string;
   description: string;
   postbackText: string;
 }
 
-interface ListMessageItem {
+export interface ListMessageItem {
   title: string;
   options: ListMessageItemOption[];
 }
@@ -64,21 +65,21 @@ export interface ListMessage {
   items: ListMessageItem[],
 }
 
-interface QuickReplyMessageTextContent {
+export interface QuickReplyMessageTextContent {
   type: string;
   header: string;
   text: string;
   footer: string;  
 }
 
-interface QuickReplyMessageMediaContent {
+export interface QuickReplyMessageMediaContent {
   type: string;
   text: string;
   url: string;
   caption: string;
 }
 
-interface QuickReplyMessageOption {
+export interface QuickReplyMessageOption {
   type: string;
   title: string;
 }

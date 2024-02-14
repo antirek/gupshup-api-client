@@ -10,7 +10,9 @@ import type {
 export class GupshupAPIClient {
   API_KEY: string;
   APP_NAME: string;
-  SOURCE_MOBILE_NUMBER: string;  
+  SOURCE_MOBILE_NUMBER: string;
+  APP_ID?: string;
+
   url: { 
     getTemplatesList: string; 
     optInUser: string; 
@@ -20,6 +22,7 @@ export class GupshupAPIClient {
     getWalletBalance: string;
     optInUsersList: string;
   };
+
   config: { 
     headers: { 
       'Cache-Control': string; 
@@ -28,10 +31,11 @@ export class GupshupAPIClient {
     };
   };
 
-  constructor ({API_KEY, APP_NAME, SOURCE_MOBILE_NUMBER}: GupshupAPIClientConfig) {
+  constructor ({API_KEY, APP_NAME, SOURCE_MOBILE_NUMBER, APP_ID}: GupshupAPIClientConfig) {
     this.API_KEY = API_KEY;
     this.APP_NAME = APP_NAME;
     this.SOURCE_MOBILE_NUMBER = SOURCE_MOBILE_NUMBER;
+    this.APP_ID = APP_ID;
 
     this.url = {
       getTemplatesList: `https://api.gupshup.io/sm/api/v1/template/list/${APP_NAME}`,
@@ -41,6 +45,7 @@ export class GupshupAPIClient {
       sendTextMessage: 'https://api.gupshup.io/sm/api/v1/msg',
       sendTemplateMessage: 'http://api.gupshup.io/sm/api/v1/template/msg',
       getWalletBalance: 'https://api.gupshup.io/sm/api/v2/wallet/balance',
+      // markRead: `https://api.gupshup.io/wa/app/${APP_ID}/msg/{msgId}/read`,
     };
 
     this.config = {
@@ -74,6 +79,12 @@ export class GupshupAPIClient {
   getWalletBalance = async () => await axios.get(this.url.getWalletBalance, this.config);
 
   getOptInUsersList = async () => await axios.get(this.url.optInUsersList, this.config);
+
+  markRead = async (msgid: string) => {
+    const apiUrl = 'https://api.gupshup.io';
+    const url = `${apiUrl}/wa/app/${this.APP_ID}/msg/${msgid}/read`;
+    return await axios.put(url, null, this.config);
+  }
 
   markUserOptIn = async (userMobileNumber: string) => {
     const params = this.getUrlEncodedData({
