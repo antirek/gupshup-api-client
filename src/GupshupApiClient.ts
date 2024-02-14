@@ -81,9 +81,17 @@ export class GupshupAPIClient {
   getOptInUsersList = async () => await axios.get(this.url.optInUsersList, this.config);
 
   markRead = async (msgid: string) => {
+    if (!this.APP_ID) {
+      throw new Error('ERROR_NOT_SET_APP_ID');
+    }
+
     const apiUrl = 'https://api.gupshup.io';
     const url = `${apiUrl}/wa/app/${this.APP_ID}/msg/${msgid}/read`;
-    return await axios.put(url, null, this.config);
+    // вернет пустую data
+    return await axios.put(url, null, {headers: {
+      apikey: this.API_KEY,
+      'Content-Type': 'application/json',
+    }});
   }
 
   markUserOptIn = async (userMobileNumber: string) => {

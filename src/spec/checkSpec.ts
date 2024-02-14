@@ -1,4 +1,4 @@
-import {GupshupAPIClient} from '../src/index';
+import {GupshupAPIClient} from '../index';
 
 const client = new GupshupAPIClient({
   API_KEY: 'test',
