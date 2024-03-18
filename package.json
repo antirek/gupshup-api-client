@@ -4,32 +4,34 @@
   "version": "0.1.6",
   "main": "dist/index",
   "dependencies": {
-      "axios": "^1.6.7"
+    "axios": "^1.6.7",
+    "qs": "^6.12.0"
   },
   "devDependencies": {
-      "@types/jest": "^29.5.12",
-      "@typescript-eslint/eslint-plugin": "^7.0.1",
-      "@typescript-eslint/parser": "^7.0.1",
-      "eslint": "^8.56.0",
-      "jest": "^29.7.0",
-      "ts-jest": "^29.1.2",
-      "typedoc": "^0.25.8",
-      "typescript": "^5.3.3"
+    "@types/jest": "^29.5.12",
+    "@types/qs": "^6.9.12",
+    "@typescript-eslint/eslint-plugin": "^7.0.1",
+    "@typescript-eslint/parser": "^7.0.1",
+    "eslint": "^8.56.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "typedoc": "^0.25.8",
+    "typescript": "^5.3.3"
   },
   "scripts": {
-      "test": "jest",
-      "build": "tsc",
-      "lint-fix": "eslint --fix . --ext .ts",
-      "docs:build": "npx typedoc"
+    "test": "jest",
+    "build": "tsc",
+    "lint-fix": "eslint --fix . --ext .ts",
+    "docs:build": "npx typedoc"
   },
   "repository": {
-      "type": "git",
-      "url": "git+https://github.com/antirek/gupshup-api-client.git"
+    "type": "git",
+    "url": "git+https://github.com/antirek/gupshup-api-client.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-      "url": "https://github.com/antirek/gupshup-api-client/issues"
+    "url": "https://github.com/antirek/gupshup-api-client/issues"
   },
   "homepage": "https://github.com/antirek/gupshup-api-client#readme"
 }
