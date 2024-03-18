@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { requestLogger, responseLogger } from 'axios-logger';
 
 import type {
   GupshupAPIClientConfig, 
@@ -14,11 +15,11 @@ export class GupshupAPIClient {
   APP_ID?: string;
 
   url: { 
-    getTemplatesList: string; 
-    optInUser: string; 
-    bulkOptIn: string; 
+    getTemplatesList: string;
+    optInUser: string;
+    bulkOptIn: string;
     sendTextMessage: string;
-    sendTemplateMessage: string; 
+    sendTemplateMessage: string;
     getWalletBalance: string;
     optInUsersList: string;
   };
@@ -31,7 +32,7 @@ export class GupshupAPIClient {
     };
   };
 
-  constructor ({API_KEY, APP_NAME, SOURCE_MOBILE_NUMBER, APP_ID}: GupshupAPIClientConfig) {
+  constructor ({API_KEY, APP_NAME, SOURCE_MOBILE_NUMBER, APP_ID, debug}: GupshupAPIClientConfig) {
     this.API_KEY = API_KEY;
     this.APP_NAME = APP_NAME;
     this.SOURCE_MOBILE_NUMBER = SOURCE_MOBILE_NUMBER;
@@ -55,6 +56,21 @@ export class GupshupAPIClient {
         apiKey: this.API_KEY
       }
     };
+
+    if (debug) {
+      const config = {
+        prefixText: 'AmoApiClient',
+        // status: true,
+        headers: false,
+        params: true,
+      };
+      axios.interceptors.request.use((request) => {
+        return requestLogger(request, config);
+      });
+      axios.interceptors.response.use((response) => {
+        return responseLogger(response, config);
+      });
+    }
   }
 
   /**

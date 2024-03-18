@@ -38,6 +38,7 @@ export interface GupshupAPIClientConfig {
   API_KEY: string;
   APP_NAME: string;
   SOURCE_MOBILE_NUMBER: string;
+  debug?: boolean;
 }
 
 export interface GlobalButton {
