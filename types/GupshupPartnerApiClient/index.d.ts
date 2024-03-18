@@ -1,2 +1,2 @@
-export * from './GupshupApiClient';
+export * from './types';
 export * from './GupshupPartnerApiClient';
